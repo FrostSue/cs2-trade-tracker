@@ -15,35 +15,19 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
+    session({ session, token }) {
+      // The `token.id` is passed from the `jwt` callback
+      if (session.user && token.id) {
+        session.user.id = token.id as string;
       }
       return session;
     },
-    async jwt({ token, user }) {
-      const dbUser = await db.user.findFirst({
-        where: {
-          email: token.email,
-        },
-      });
-
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id;
-        }
-        return token;
+    jwt({ token, user }) {
+      // The `user.id` is passed from the provider on initial sign-in
+      if (user) {
+        token.id = user.id;
       }
-
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      };
+      return token;
     },
   },
 };
