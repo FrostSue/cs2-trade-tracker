@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Dashboard } from "@/app/(main)/(dashboard)/_components/dashboard";
+import { Dashboard } from "@/components/dashboard";
 
 // This tells Next.js to always render this page dynamically
 // instead of trying to create a static version at build time.
