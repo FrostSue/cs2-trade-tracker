@@ -27,6 +27,12 @@ export async function PUT(
   } = routeContextSchema.parse(context);
   const body = await req.json();
 
+  // If a sellPrice is provided, automatically set sellDate and status
+  if (body.sellPrice) {
+    body.sellDate = new Date();
+    body.status = "SOLD";
+  }
+
   const trade = await db.trade.update({
     where: {
       id,

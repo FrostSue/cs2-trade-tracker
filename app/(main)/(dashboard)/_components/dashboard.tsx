@@ -52,9 +52,33 @@ export function Dashboard({ initialTrades }: DashboardProps) {
 
       {/* Trades Table */}
       <div>
-        {/* TODO: Implement a proper data table component */}
-        <p>{trades.length} trades loaded.</p>
-        <pre>{JSON.stringify(trades, null, 2)}</pre>
+        {/* TODO: Implement a proper data table component with inline editing.
+            - The "Add" button should open a form to enter Item Name and Buy Price.
+            - Clicking a row should allow editing Sell Price and Site Commission.
+            - On submitting a Sell Price, the API will auto-set the Sell Date and Status.
+        */}
+        <div className="rounded-lg border">
+          <div className="relative w-full overflow-auto">
+            <table className="w-full caption-bottom text-sm">
+              <thead>
+                <tr className="border-b transition-colors hover:bg-muted/50">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Item Name</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Buy Price</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trades.map((trade) => (
+                  <tr key={trade.id} className="border-b transition-colors hover:bg-muted/50">
+                    <td className="p-4 align-middle font-medium">{trade.itemName}</td>
+                    <td className="p-4 align-middle">${trade.buyPrice.toFixed(2)}</td>
+                    <td className="p-4 align-middle">{trade.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

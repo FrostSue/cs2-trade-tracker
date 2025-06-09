@@ -7,7 +7,7 @@ import { Dashboard } from "./_components/dashboard";
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session || !session.user) {
     redirect("/api/auth/signin");
   }
 

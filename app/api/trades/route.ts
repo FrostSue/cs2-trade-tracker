@@ -33,13 +33,12 @@ export async function POST(req: Request) {
     });
   }
 
-  const { itemName, buyPrice, buyDate } = await req.json();
+  const { itemName, buyPrice } = await req.json();
 
   const trade = await db.trade.create({
     data: {
       itemName,
       buyPrice,
-      buyDate: new Date(buyDate),
       userId: session.user.id,
     },
   });

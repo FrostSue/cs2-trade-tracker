@@ -64,7 +64,7 @@ enum TradeStatus {
 model Trade {
   id              String      @id @default(cuid())
   itemName        String
-  buyDate         DateTime
+  buyDate         DateTime    @default(now())
   sellDate        DateTime?
   buyPrice        Float
   sellPrice       Float?
